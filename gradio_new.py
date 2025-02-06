@@ -459,7 +459,9 @@ def calc_cam_cone_pts_3d(polar_deg, azimuth_deg, radius_m, fov_deg):
 
 def run_demo(
         device_idx=_GPU_INDEX,
-        model_id='kxic/zero123-105000'):
+        model_id='kxic/zero123-105000',
+        server_name="0.0.0.0",
+        server_port=7860):
 
     print('sys.argv:', sys.argv)
     if len(sys.argv) > 1:
@@ -644,9 +646,12 @@ def run_demo(
                                     0.0, 180.0, 0.0),
                        inputs=preset_inputs, outputs=preset_outputs)
 
-    demo.launch(enable_queue=True, share=True)
+    #demo.launch(enable_queue=True, share=True)
+    demo.launch(server_name=server_name, server_port=server_port, enable_queue=True, share=True)
 
 
 if __name__ == '__main__':
-
+    print("fire gradio ui")
     fire.Fire(run_demo)
+
+
